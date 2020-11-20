@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'WidgetOfTask.dart';
 
 class DataWorker {
-  static void writeJSON(String name, String date, String descr) {
+  static void writeJSON(String date, String name, String descr) {
     getApplicationDocumentsDirectory().then(
       (e) {
         //File("${e.path}/data.json").writeAsStringSync("[]", mode:FileMode.write);
@@ -25,11 +25,12 @@ class DataWorker {
     List<Widget> Tasks = new List<Widget>();
     Directory p = await getApplicationDocumentsDirectory();
     //File("${p.path}/data.json").writeAsStringSync("{}", mode:FileMode.write);
-    print(File("${p.path}/data.json").readAsStringSync());
+    //print(File("${p.path}/data.json").readAsStringSync());
     
     bool f = await File(p.path+"/data.json").exists();
     if (!f) File(p.path+"/data.json").writeAsStringSync("{}");
     Map<String, dynamic> data = jsonDecode(File("${p.path}/data.json").readAsStringSync());
+    print(File("${p.path}/data.json").readAsStringSync());
     data.keys.forEach((e) {
       print(data[e]);
       Tasks.add(WidgetOfTask(name:e, time:data[e]["date"], discription:data[e]["description"]));

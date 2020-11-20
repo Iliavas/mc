@@ -14,6 +14,7 @@ class _InputTemplate extends State<InputTemplate>{
   final myControllerDescr = TextEditingController();
   
   Widget TimePicker = Text("Введите время", textAlign: TextAlign.left);
+  String data="";
 
   @override
   Widget build(BuildContext context){
@@ -27,7 +28,7 @@ class _InputTemplate extends State<InputTemplate>{
         children: <Widget>[
             GestureDetector(
               child: TimePicker,
-              onTap: () => showTimePicker(context: context, initialTime: TimeOfDay.now()).then((e) {setState(() {TimePicker = Text(e.format(context));});})
+              onTap: () => showTimePicker(context: context, initialTime: TimeOfDay.now()).then((e) {setState(() {TimePicker = Text(e.format(context)); data=e.format(context);});})
               ),
             TextField(
               decoration:InputDecoration(
@@ -49,7 +50,7 @@ class _InputTemplate extends State<InputTemplate>{
             child: Text("Далее", style: TextStyle(color: Colors.white),),
             color: Colors.blue,
             onPressed: (){
-               DataWorker.writeJSON(myControllerDate.text, myControllerName.text, myControllerDescr.text);
+               DataWorker.writeJSON(data, myControllerName.text, myControllerDescr.text);
                Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => TasksTemplate()) ,
